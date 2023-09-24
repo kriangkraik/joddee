@@ -1,24 +1,23 @@
-package net.joddee.entitys;
+package net.joddee.main.entitys;
+
+import static jakarta.persistence.GenerationType.SEQUENCE;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.SequenceGenerator;
+
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity
-@Table(name = "rental")
+@Entity(name = "rental")
 @Getter
 @Setter
-@ToString
 public class Rental {
 	@Id
-	@Column(name = "rentalId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "rental_sequence", sequenceName = "rental_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "rental_sequence")
 	private Long rentalId;
 
 	@Column(name = "rentalDate")

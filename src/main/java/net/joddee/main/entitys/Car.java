@@ -1,24 +1,22 @@
-package net.joddee.entitys;
+package net.joddee.main.entitys;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
+import jakarta.persistence.SequenceGenerator;
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
-@Entity
-@Getter @Setter
+import static jakarta.persistence.GenerationType.SEQUENCE;
+
+@Entity(name = "car")
+@Getter
+@Setter
 public class Car {
-
-
 	@Id
-	@Column(name = "carId")
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "car_sequence", sequenceName = "car_sequence", allocationSize = 1)
+	@GeneratedValue(strategy = SEQUENCE, generator = "car_sequence")
 	private Long carId;
 
 	@Column(name = "plateId")
