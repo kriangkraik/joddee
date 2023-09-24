@@ -19,7 +19,7 @@ public class Park {
 	@Id
 	@Column(name = "parkId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer parkId;
+	private Long  parkId;
 	
 	@Column(name = "parkname")
 	private String parkname;

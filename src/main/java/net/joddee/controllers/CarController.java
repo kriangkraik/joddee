@@ -1,41 +1,73 @@
 package net.joddee.controllers;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import net.joddee.repositorys.CarRepository;
+
 import net.joddee.entitys.Car;
 
 @RestController
-@RequestMapping("/car")
+@RequestMapping("/cars")
 public class CarController {
-	Car car;
+	private final CarRepository carRepository;
 
-	@GetMapping("{carId}")
-	public Car getCarbyId(String carId) {
-		return car;
+	public CarController(CarRepository carRepository) {
+		this.carRepository = carRepository;
+	}
+
+	@GetMapping
+	public List<Car> getAllCars() {
+		return carRepository.findAll();
 	}
 
 	@PostMapping
-	public String createCars(@RequestBody Car car) {
-		this.car = car;
-		return "Car Created Successfully";
+	public Car createCar(@RequestBody Car car) {
+		return carRepository.save(car);
 	}
 
-	@PutMapping
-	public String updateCars(@RequestBody Car car) {
-		this.car = car;
-		return "Car Updated Successfully";
+	@GetMapping("/{id}")
+	public ResponseEntity<Car> getCarById(@PathVariable int id) {
+		Optional<Car> car = carRepository.findById(id);
+		return car.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
 	}
 
-	@DeleteMapping("{carId}")
-	public String deleteCars(String carId) {
-		this.car = null;
-		return "Car Deleted Successfully";
+	@PutMapping("/{id}")
+	public ResponseEntity<Car> updateCar(@PathVariable int id, @RequestBody Car updatedCar) {
+		Optional<Car> existingCar = carRepository.findById(id);
+
+		if (existingCar.isPresent()) {
+			Car car = existingCar.get();
+			car.setCarId(updatedCar.getCarId());
+			car.setColor(updatedCar.getColor());
+			car.setIsactive(updatedCar.getIsactive());
+			car.setPlateId(updatedCar.getPlateId());
+			car.setPlateprovince(updatedCar.getPlateprovince());
+			car.setTypeCar(updatedCar.getTypeCar());
+			carRepository.save(car);
+			return ResponseEntity.ok(car);
+		} else {
+			return ResponseEntity.notFound().build();
+		}
 	}
 
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteCar(@PathVariable int id) {
+		if (carRepository.existsById(id)) {
+			carRepository.deleteById(id);
+			return ResponseEntity.noContent().build();
+		} else {
+			return ResponseEntity.notFound().build();
+		}
+	}
 }

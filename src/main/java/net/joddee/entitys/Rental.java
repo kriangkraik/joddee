@@ -19,22 +19,22 @@ public class Rental {
 	@Id
 	@Column(name = "rentalId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer rentalId;
+	private Long rentalId;
 
 	@Column(name = "rentalDate")
 	private String rentalDate;
 
 	@Column(name = "parkId")
-	private Integer parkId;
+	private Long parkId;
 
 	@Column(name = "customerId")
-	private Integer customerId;
+	private Long customerId;
 
 	@Column(name = "returnDate")
 	private String returnDate;
 
 	@Column(name = "staffId")
-	private Integer staffId;
+	private Long staffId;
 
 	@Column(name = "lastupDate")
 	private String lastupDate;

@@ -19,13 +19,13 @@ public class Payment {
 	@Id
 	@Column(name = "paymentId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer paymentId;
+	private Long paymentId;
 
 	@Column(name = "customerId")
-	private Integer customerId;
+	private Long customerId;
 
 	@Column(name = "staffId")
-	private Integer staffId;
+	private Long staffId;
 
 	@Column(name = "rentalId")
 	private String rentalId;

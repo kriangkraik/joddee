@@ -7,5 +7,5 @@ import net.joddee.entitys.Car;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Integer> {
-	// สามารถเพิ่มเมธอดเพิ่มเติมสำหรับการเรียกข้อมูลจากฐานข้อมูลได้
+	
 }

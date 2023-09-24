@@ -6,20 +6,20 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
 @Entity
-@Table(name = "car")
-@Getter
-@Setter
-@ToString
+@Getter @Setter
 public class Car {
+
+
 	@Id
 	@Column(name = "carId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer carId;
+	private Long carId;
 
 	@Column(name = "plateId")
 	private String plateId;
@@ -32,5 +32,8 @@ public class Car {
 
 	@Column(name = "isactive")
 	private Integer isactive;
+
+	@Column(name = "plateprovince")
+	private String plateprovince;
 
 }
